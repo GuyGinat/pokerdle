@@ -1002,6 +1002,11 @@ picomatch@^2.0.4, picomatch@^2.2.1, picomatch@^2.2.2, picomatch@^2.2.3:
   resolved "https://registry.yarnpkg.com/picomatch/-/picomatch-2.3.0.tgz#f1f061de8f6a4bf022892e2d128234fb98302972"
   integrity sha512-lY1Q/PiJGC2zOv/z391WOTD+Z02bCgsFfvxoXXf6h7kv9o+WmsmzYqrAwY63sNgOxE4xEdq0WyUnXfKeBrSvYw==
 
+pokersolver@^2.1.4:
+  version "2.1.4"
+  resolved "https://registry.yarnpkg.com/pokersolver/-/pokersolver-2.1.4.tgz#58934f3dad1dc597c44e80474bc82e9626790ccc"
+  integrity sha512-vmgZS+K8H8r1RePQykFM5YyvlKo1v3xVec8FMBjg9N6mR2Tj/n/X415w+lG67FWbrk71D/CADmKFinDgaQlAsw==
+
 postcss-js@^3.0.3:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/postcss-js/-/postcss-js-3.0.3.tgz#2f0bd370a2e8599d45439f6970403b5873abda33"

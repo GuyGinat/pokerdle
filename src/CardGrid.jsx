@@ -1,10 +1,11 @@
 import React, {useState, useEffect} from 'react'
 
-export default function CardGrid({cards, round}) {
+export default function CardGrid({cards, round, winning}) {
 
     const [showCards, setshowCards] = useState([...cards.slice(0, round * 5)])
     useEffect(() => {
         setshowCards([...cards.slice(0, round * 5)])
+        // winning(round)
     }, [round])
   return (
       <div className=' w-8/12 mx-auto'>

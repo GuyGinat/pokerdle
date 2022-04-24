@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import CardGrid from './CardGrid';
 import GuessTable from './GuessTable';
 import PlayerHand from './PlayerHand';
+import Hand from 'pokersolver';
 
 const suits = ["hearts", "diamonds", "clubs", "spades"]
 const values = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K', 'A']
@@ -429,6 +430,7 @@ const App = () => {
     }
   ])
   const [round, setRound] = useState(1)
+  const [guesses, setGuesses] = useState(3)
   const [playerHand, setPlayerHand] = useState([])
   const [pcHand, setPcHand] = useState([])
 
@@ -454,22 +456,39 @@ const App = () => {
 
   useEffect(() => {    
       drawPlayerHand(); 
-      shuffle(deck);      
+      // shuffle(deck);      
       // setCurrentShown(...deck.splice(5))
   }, [])
+
+  const guess = (guessCards) => {
+
+  }
+
+  const solve = (rowNumber) => {
+    let ph = playerHand.map(c => c.value.charAt[0] + c.suit.charAt[0])
+    ph = [...ph, dailyDeck.split(rowNumber * 5, (rowNumber + 1) * 5 ).map(c => c.value.charAt[0] + c.suit.charAt[0])]
+    let pch = playerHand.map(c => c.value.charAt[0] + c.suit.charAt[0])
+    pch = [...pch, dailyDeck.split(rowNumber * 5, (rowNumber + 1) * 5 ).map(c => c.value.charAt[0] + c.suit.charAt[0])]
+    // let hand1 = Hand.solve(['Ad', 'As', 'Jc', 'Th', '2d', '3c', 'Kd']);
+    // var hand2 = Hand.solve(['Ad', 'As', 'Jc', 'Th', '2d', 'Qs', 'Qd']);
+    console.log('Player hand ' +ph)
+    console.log('PC hand ' + pch)
+    let winner = Hand.winners([ph, pch]); // hand2
+  }
 
   const drawPlayerHand = () => {
     shuffle(deck);
     const d = dailyDeck;
     setPlayerHand([d[0], d[1]])
     setPcHand([d[2], d[3]])
+
     // setDailyDeck([...d.slice(4)])
     // console.log(d.length)
   }
 
   function CardsToShow() {
     return (
-      <CardGrid cards={dailyDeck} round={round}/>
+      <CardGrid cards={dailyDeck} round={round} winning={solve}/>
     )
   }  
 
