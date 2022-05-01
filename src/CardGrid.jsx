@@ -7,6 +7,10 @@ export default function CardGrid({cards, round, winning}) {
         setshowCards([...cards.slice(0, round * 5)])
         // winning(round)
     }, [round])
+    useEffect(() => {
+        winning()
+        // code to run after render goes here
+      });
   return (
       <div className=' w-8/12 mx-auto'>
         <div className=' grid grid-cols-5 gap-y-2 gap-x-2 mt-8'>
