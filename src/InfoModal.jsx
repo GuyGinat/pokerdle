@@ -49,7 +49,7 @@ export default function InfoModal({ open, close}) {
 
                                         </p>
                                         <p>
-                                            Each row shows a full table of five cards, if your hand wins the opponents, a green V mark will show next to it, else, a red X mark
+                                            Each row shows a full table of five cards, if your hand wins the opponents (Texas hold'em rules), a green V mark will show next to it, else, a red X mark
                                         </p>
                                         
                                     </div>

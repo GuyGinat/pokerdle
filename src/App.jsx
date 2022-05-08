@@ -598,7 +598,7 @@ const App = () => {
   }
 
   return (
-    <div className="font-bold text-2xl flex mt-40 flex-col h-full min-h-screen">
+    <div className="font-bold text-2xl flex mt-28 flex-col h-full min-h-screen">
       <InfoModal open={showInfo} close={setShowInfo}/>
       <WinModal open={hasWon} hand={pcHand} round={round} />
       {/* <img src={`./${'deck'}.png`} alt="" srcset="" /> */}
@@ -612,11 +612,11 @@ const App = () => {
         </svg>
       </div>
       <div className='bg-white z-10'>
-        <div className='flex flex-col justify-center fixed top-24 left-8'>
+        <div className='flex flex-col justify-center fixed top-16 left-8'>
           <div className='text-sm'>Your Cards</div>
           <PlayerHandToShowToShow />
         </div>
-        <div className='flex flex-col justify-center fixed top-24 right-8'>
+        <div className='flex flex-col justify-center fixed top-16 right-8'>
           <div className='text-sm'>Your Guess</div>
           <PCHandToShowToShow />
         </div>
