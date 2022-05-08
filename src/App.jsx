@@ -3,6 +3,10 @@ import CardGrid from './CardGrid';
 import GuessTable from './GuessTable';
 import PlayerHand from './PlayerHand';
 import Ranker from 'handranker';
+import GuessGrid from './GuessGrid';
+import WinModal from './WinModal';
+
+
 const suits = ["hearts", "diamonds", "clubs", "spades"]
 const values = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K', 'A']
 
@@ -435,10 +439,8 @@ const App = () => {
   const [pcHand, setPcHand] = useState([])
   const [tables, setTables] = useState([])
 
-  const [selectedSuit, setSelectedSuit] = useState(suits[0])
-  const [selectedValue, setSelectedValue] = useState(values[0])
-  const [selectedSuit2, setSelectedSuit2] = useState(suits[0])
-  const [selectedValue2, setSelectedValue2] = useState(values[0])
+  const [selectedCards, setSelectedCards] = useState([{suit: suits[0], value:values[0]}, {suit: suits[0], value:values[1]}])
+  const [lastSelected, setlastSelected] = useState(1)
 
   const shuffle = (originalArray) => {
     const array = [...originalArray]
@@ -458,12 +460,20 @@ const App = () => {
   }
 
   useEffect(() => {
-    shuffle(deck)    
+    shuffle(deck)
   }, [])
 
   useEffect(() => {
-    drawPlayerHand();    
+    drawPlayerHand();
   }, [dailyDeck])
+
+  const handleCardSelect = (card) => {
+    let cs = [...selectedCards]
+    let next = (lastSelected + 1) % 2
+    cs[next] = card
+    setlastSelected(next)
+    setSelectedCards(cs) 
+  }
 
   const solve = (rowNumber) => {
     let d = [...dailyDeck]
@@ -474,11 +484,10 @@ const App = () => {
     let pch = pcHand.map(c => `${c.value}${c.suit}`.slice(0, 2))
     ph = [...ph, ...table]
     pch = [...pch, ...table]
-    
-    var hands = [{id: 1, cards: ph},{id: 2, cards: pch}]
+
+    var hands = [{ id: 1, cards: ph }, { id: 2, cards: pch }]
     var results = Ranker.orderHands(hands);
     var isWinning = results[0].id === 1
-    console.log(results, isWinning)
     return isWinning
     // pch = [...pch, d.splice(rowNumber * 5, (rowNumber + 1) * 5 ).map(c => c.value.charAt[0] + c.suit.charAt[0])]
 
@@ -491,9 +500,9 @@ const App = () => {
     ph = [...ph, ...t]
     pch = [...pch, ...t]
 
-    let hands = [{id: 1, cards: ph},{id: 2, cards: pch}]
+    let hands = [{ id: 1, cards: ph }, { id: 2, cards: pch }]
     let results = Ranker.orderHands(hands);
-    console.log(results[0][0].id)
+    console.log(results, handNumber)
     return results[0][0].id === 1
   }
 
@@ -511,8 +520,7 @@ const App = () => {
       [d[29], d[30], d[31], d[32], d[33]],
       [d[34], d[35], d[36], d[37], d[38]],
       [d[39], d[40], d[41], d[42], d[43]],
-      [d[44], d[45], d[46], d[47], d[48]],
-    ])    
+    ])
   }
 
   useEffect(() => {
@@ -526,9 +534,9 @@ const App = () => {
   }, [tables]);
 
   function CardsToShow() {
-    
+
     return (
-      <CardGrid round={round} winStates={winStates} cards={tables}/>
+      <CardGrid round={round} winStates={winStates} cards={tables} />
     )
   }
 
@@ -538,7 +546,7 @@ const App = () => {
     } else {
       return (
         <PlayerHand playerCards={playerHand} />
-        )
+      )
     }
   }
 
@@ -547,37 +555,63 @@ const App = () => {
       return (<></>)
     } else {
       return (
-        <PlayerHand playerCards={pcHand} />
-        )
+        <PlayerHand playerCards={selectedCards} />
+      )
     }
   }
 
+  const compareSelection = (hand1, hand2) => {
+    let foundBoth = true
+    hand1.forEach(c => {
+      let foundCard = false;
+      hand2.forEach(c2 => {
+        if (c2.suit === c.suit && c2.value === c.value) foundCard = true;
+      })
+      if (!foundCard) foundBoth = false
+    });
+    return foundBoth
+  }
+
   const handleSetRound = (nextRound) => {
+
+
+    if (compareSelection(selectedCards, pcHand)) {
+      console.log('Good')
+      return
+    } else {
+      console.log('Bad')
+    }
     if (nextRound > tables.length) return
     else setRound(nextRound)
   }
 
   return (
-    <div className="font-bold text-4xl flex mt-32 flex-col h-full min-h-screen">
+    <div className="font-bold text-2xl flex mt-40 flex-col h-full min-h-screen">
+      <WinModal />
       {/* <img src={`./${'deck'}.png`} alt="" srcset="" /> */}
       <div className='text-center pb-2 border-b-2 mx-0 fixed w-screen top-4 bg-white z-10'>
         Pokerdle
       </div>
-      <div className='flex flex-row justify-center fixed top-24 left-8'>
-        <PlayerHandToShowToShow/>      
-      </div>
-      <div className='flex flex-row justify-center fixed top-24 right-8'>
-        <PCHandToShowToShow/>      
+      <div className='bg-white z-20'>
+        <div className='flex flex-col justify-center fixed top-24 left-8'>
+          <div className='text-sm'>Your Cards</div>
+          <PlayerHandToShowToShow />
+        </div>
+        <div className='flex flex-col justify-center fixed top-24 right-8'>
+        <div className='text-sm'>Your Guess</div>
+          <PCHandToShowToShow />
+        </div>
       </div>
       {/* <GuessTable selectedSuit={selectedSuit} selectedValue={selectedValue} setSelectedSuit={setSelectedSuit} setSelectedValue={setSelectedValue} />
       <GuessTable selectedSuit={selectedSuit2} selectedValue={selectedValue2} setSelectedSuit={setSelectedSuit2} setSelectedValue={setSelectedValue2} /> */}
-      <div className='flex justify-center fixed bottom-10 right-10 text-sm'>
-        <button onClick={(e) => handleSetRound(round + 1)}>Draw</button>
+      <div className='flex justify-center fixed bottom-36 right-6 text-sm'>
+        <button className='bg-slate-200 rounded-md p-2' onClick={(e) => handleSetRound(round + 1)}>Guess</button>
       </div>
       <CardsToShow />
       {/* <div className='flex justify-center fixed bottom-10'>
         <button onClick={(e) => drawPlayerHand()}>Shuffle</button>
       </div> */}
+      <GuessGrid cards={deck} round={round} tables={tables} select={handleCardSelect} selectedCards={selectedCards}/>
     </div>
   );
 };
