@@ -558,19 +558,19 @@ const App = () => {
   }
 
   return (
-    <div className="font-bold text-4xl mt-24 flex justify-center flex-col">
+    <div className="font-bold text-4xl flex mt-32 flex-col h-full min-h-screen">
       {/* <img src={`./${'deck'}.png`} alt="" srcset="" /> */}
       <div className='text-center pb-2 border-b-2 mx-0 fixed w-screen top-4 bg-white'>
         Pokerdle
       </div>
-      <div className='flex flex-row justify-center fixed top-48 left-8'>
+      <div className='flex flex-row justify-center fixed top-24 left-8'>
         <PlayerHandToShowToShow/>      
       </div>
-      <div className='flex flex-row justify-center fixed top-48 right-8'>
+      <div className='flex flex-row justify-center fixed top-24 right-8'>
         <PCHandToShowToShow/>      
       </div>
-      <GuessTable selectedSuit={selectedSuit} selectedValue={selectedValue} setSelectedSuit={setSelectedSuit} setSelectedValue={setSelectedValue} />
-      <GuessTable selectedSuit={selectedSuit2} selectedValue={selectedValue2} setSelectedSuit={setSelectedSuit2} setSelectedValue={setSelectedValue2} />
+      {/* <GuessTable selectedSuit={selectedSuit} selectedValue={selectedValue} setSelectedSuit={setSelectedSuit} setSelectedValue={setSelectedValue} />
+      <GuessTable selectedSuit={selectedSuit2} selectedValue={selectedValue2} setSelectedSuit={setSelectedSuit2} setSelectedValue={setSelectedValue2} /> */}
       <div className='flex justify-center fixed bottom-10 right-10'>
         <button onClick={(e) => handleSetRound(round + 1)}>Draw Table</button>
       </div>
