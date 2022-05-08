@@ -560,7 +560,7 @@ const App = () => {
   return (
     <div className="font-bold text-4xl flex mt-32 flex-col h-full min-h-screen">
       {/* <img src={`./${'deck'}.png`} alt="" srcset="" /> */}
-      <div className='text-center pb-2 border-b-2 mx-0 fixed w-screen top-4 bg-white'>
+      <div className='text-center pb-2 border-b-2 mx-0 fixed w-screen top-4 bg-white z-10'>
         Pokerdle
       </div>
       <div className='flex flex-row justify-center fixed top-24 left-8'>
@@ -571,13 +571,13 @@ const App = () => {
       </div>
       {/* <GuessTable selectedSuit={selectedSuit} selectedValue={selectedValue} setSelectedSuit={setSelectedSuit} setSelectedValue={setSelectedValue} />
       <GuessTable selectedSuit={selectedSuit2} selectedValue={selectedValue2} setSelectedSuit={setSelectedSuit2} setSelectedValue={setSelectedValue2} /> */}
-      <div className='flex justify-center fixed bottom-10 right-10'>
-        <button onClick={(e) => handleSetRound(round + 1)}>Draw Table</button>
+      <div className='flex justify-center fixed bottom-10 right-10 text-sm'>
+        <button onClick={(e) => handleSetRound(round + 1)}>Draw</button>
       </div>
       <CardsToShow />
-      <div className='flex justify-center fixed bottom-10'>
+      {/* <div className='flex justify-center fixed bottom-10'>
         <button onClick={(e) => drawPlayerHand()}>Shuffle</button>
-      </div>
+      </div> */}
     </div>
   );
 };
