@@ -5,12 +5,20 @@ import PlayerHand from './PlayerHand';
 import Ranker from 'handranker';
 import GuessGrid from './GuessGrid';
 import WinModal from './WinModal';
+import seed from 'seed-random'
 
 
 const suits = ["hearts", "diamonds", "clubs", "spades"]
 const values = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K', 'A']
 
 const App = () => {
+  let date = new Date();
+  date = 'd' + date.getDate() + 'y' + date.getFullYear + 'm' + date.getMonth;
+  seed(date, {global: true});
+  var numA = Math.random();
+  seed(date, {global: true});
+  var numB = Math.random();
+  console.log(numA, numB)
 
   const [deck, setDeck] = useState([
     {
@@ -439,6 +447,7 @@ const App = () => {
   const [pcHand, setPcHand] = useState([])
   const [tables, setTables] = useState([])
 
+  const [hasWon, setHasWon] = useState(false)
   const [selectedCards, setSelectedCards] = useState([{suit: suits[0], value:values[0]}, {suit: suits[0], value:values[1]}])
   const [lastSelected, setlastSelected] = useState(1)
 
@@ -577,6 +586,7 @@ const App = () => {
 
     if (compareSelection(selectedCards, pcHand)) {
       console.log('Good')
+      setHasWon(true)
       return
     } else {
       console.log('Bad')
@@ -587,12 +597,12 @@ const App = () => {
 
   return (
     <div className="font-bold text-2xl flex mt-40 flex-col h-full min-h-screen">
-      <WinModal />
+      <WinModal open={hasWon} hand={pcHand} round={round}/>
       {/* <img src={`./${'deck'}.png`} alt="" srcset="" /> */}
       <div className='text-center pb-2 border-b-2 mx-0 fixed w-screen top-4 bg-white z-10'>
         Pokerdle
       </div>
-      <div className='bg-white z-20'>
+      <div className='bg-white z-10'>
         <div className='flex flex-col justify-center fixed top-24 left-8'>
           <div className='text-sm'>Your Cards</div>
           <PlayerHandToShowToShow />
