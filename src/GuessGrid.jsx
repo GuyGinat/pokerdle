@@ -27,7 +27,7 @@ export default function GuessGrid({cards, round, tables, select, selectedCards})
 
     return (
         <div className="flex justify-center">
-        <div className='grid grid-cols-13 gap-0 fixed bottom-0 mx-auto h-32'>
+        <div className='grid grid-cols-13 gap-0 fixed bottom-0 mx-auto h-48'>
             {cards.map((c, idx) => {
                 return (
                     <CardSmall card={c} key={idx} shownCards={shown} select={select} selectedCards={selectedCards}/>

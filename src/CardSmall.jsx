@@ -28,7 +28,7 @@ export default function CardSmall({ card, shownCards, select, selectedCards }) {
 
   return (
     
-    <div className={`text-sm md:text-base font-normal h-8 w-8 md:h-8 md:w-12 rounded-none justify-center ${isShown ? 'bg-gray-200' : isSelected ? 'bg-green-200': 'bg-yellow-100'}  border-2 border-gray-100 cursor-pointer flex items-center shadow-md relative`}>
+    <div className={`text-sm md:text-base font-normal h-12 w-8 md:h-8 md:w-12 rounded-none justify-center ${isShown ? 'bg-gray-200' : isSelected ? 'bg-green-200': 'bg-yellow-100'}  border-2 border-gray-100 cursor-pointer flex items-center shadow-md relative`}>
       <div className="md:top-4 md:left-4 flex flex-row items-center gap-1 justify-between" onClick={() => handleSelectCard()}>
         <img src={`./${card.suit}.png`} className="w-3 h-3 md:w-4 md:h-4" />
         <p className="h-6 font-semibold">{`${card.value === 'T' ? '10': card.value}`}</p>
