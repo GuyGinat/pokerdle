@@ -21,7 +21,7 @@ export default function CardGrid({cards, round, winStates}) {
                             return (                        
                                     <div 
                                         key={c.value+c.suit} 
-                                        className='text-base font-normal h-44 w-24 border-t-2 border-yellow-50 rounded-lg bg-yellow-100 flex justify-center items-center shadow-md'>
+                                        className='text-xs md:text-base font-normal h-20 w-12 md:h-44 md:w-24 border-t-2 border-yellow-50 rounded-lg bg-yellow-100 flex justify-center items-center shadow-md'>
                                         
                                         <p className='h-6'>{c.value} {c.suit}</p>                    
                                     </div>

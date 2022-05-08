@@ -3,7 +3,6 @@ import CardGrid from './CardGrid';
 import GuessTable from './GuessTable';
 import PlayerHand from './PlayerHand';
 import Ranker from 'handranker';
-
 const suits = ["hearts", "diamonds", "clubs", "spades"]
 const values = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K', 'A']
 
@@ -560,6 +559,7 @@ const App = () => {
 
   return (
     <div className="font-bold text-4xl mt-24 flex justify-center flex-col">
+      {/* <img src={`./${'deck'}.png`} alt="" srcset="" /> */}
       <div className='text-center pb-2 border-b-2 mx-0 fixed w-screen top-4 bg-white'>
         Pokerdle
       </div>
