@@ -43,15 +43,45 @@ export default function InfoModal({ open, close}) {
                             >
                                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">                                    
                                     <div className="mt-2">
-                                        <p className="text-sm text-gray-500">
+                                        <p className="text-md font-bold text-gray-500 mb-4">
                                             Guess the POKERDLE in six tries.
-                                            Each guess must contain both cards in the opponents hand
-
                                         </p>
-                                        <p>
-                                            Each row shows a full table of five cards, if your hand wins the opponents (Texas hold'em rules), a green V mark will show next to it, else, a red X mark
+                                        <p className="text-sm text-gray-500 mb-4">
+                                            In each row you are against the opponent with your own hand and the row of cards (Texas hold'em rules)                                            
                                         </p>
-                                        
+                                        <p className="text-sm font-bold text-gray-500 mb-4">
+                                            Your job is to guess the opponents hand
+                                        </p>
+                                        <p className="text-sm text-gray-500 mb-4">
+                                            If your hand wins the opponents, a green <span className='text-green-400'>V</span> mark will show next to it, else, a red <span className='text-red-400'>X</span> mark
+                                        </p>
+                                        <div>Your hand</div>
+                                        <div className='flex flex-row'>
+                                            <Card card={{value: '7', suit:'hearts'}}></Card>
+                                            <Card card={{value: '10', suit:'clubs'}}></Card> 
+                                        </div>
+                                        <div className=' mt-4'>If you win</div>
+                                        <div className='flex flex-row'>
+                                            <div className='flex mr-2 mt-2 justify-center items-center text-green-300 text-md font-normal'>
+                                                {'V'}
+                                            </div>
+                                            <Card card={{value: '7', suit:'diamonds'}}></Card>
+                                            <Card card={{value: '7', suit:'clubs'}}></Card>
+                                            <Card card={{value: 'Q', suit:'hearts'}}></Card>
+                                            <Card card={{value: '10', suit:'spades'}}></Card>
+                                            <Card card={{value: '3', suit:'hearts'}}></Card>
+                                        </div>
+                                        <div className=' mt-4'>If you lose</div>
+                                        <div className='flex flex-row'>
+                                        <div className='flex mr-2 mt-4 justify-center items-center text-red-300 text-md font-normal'>
+                                            {'X'}
+                                        </div>
+                                            <Card card={{value: '2', suit:'hearts'}}></Card>
+                                            <Card card={{value: 'A', suit:'diamonds'}}></Card>
+                                            <Card card={{value: 'J', suit:'clubs'}}></Card>
+                                            <Card card={{value: '6', suit:'hearts'}}></Card>
+                                            <Card card={{value: '3', suit:'clubs'}}></Card>
+                                        </div>
                                     </div>
                                     <div className='flex flex-row mt-2'>
                                         {/* <Card card={hand[0]} />

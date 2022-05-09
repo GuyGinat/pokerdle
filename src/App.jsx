@@ -450,9 +450,11 @@ const App = () => {
 
   const [hasWon, setHasWon] = useState(false)
   const [showInfo, setShowInfo] = useState(true)
-  const [selectedCards, setSelectedCards] = useState([{ suit: suits[0], value: values[0] }, { suit: suits[0], value: values[1] }])
+  const [selectedCards, setSelectedCards] = useState([{ suit: '', value: '?' }, { suit: '', value: '?' }])
   const [lastSelected, setlastSelected] = useState(1)
 
+  const [guessedCards, setGuessedCards] = useState([])
+  const [correctlyGuessedCard, setCorrectlyGuessedCard] = useState({})
   const shuffle = (originalArray) => {
     const array = [...originalArray]
     let currentIndex = originalArray.length, randomIndex;
@@ -471,7 +473,7 @@ const App = () => {
   }
 
   useEffect(() => {
-    shuffle(deck)
+    shuffle(deck)    
   }, [])
 
   useEffect(() => {
@@ -480,6 +482,7 @@ const App = () => {
 
   const handleCardSelect = (card) => {
     let cs = [...selectedCards]
+    if (cs[lastSelected].value === card.value && cs[lastSelected].suit === card.suit) return
     let next = (lastSelected + 1) % 2
     cs[next] = card
     setlastSelected(next)
@@ -513,7 +516,6 @@ const App = () => {
 
     let hands = [{ id: 1, cards: ph }, { id: 2, cards: pch }]
     let results = Ranker.orderHands(hands);
-    console.log(results, handNumber)
     return results[0][0].id === 1
   }
 
@@ -521,6 +523,7 @@ const App = () => {
     // shuffle(deck);
     const d = dailyDeck;
     setPlayerHand([d[0], d[1]])
+    setGuessedCards([d[0], d[1]])
     setPcHand([d[2], d[3]])
     setTables([
       [d[4], d[5], d[6], d[7], d[8]],
@@ -571,26 +574,84 @@ const App = () => {
     }
   }
 
+  useEffect(() => {
+    if (correctlyGuessedCard !== {}) {
+      console.log('found 1 card!')
+    }
+  }, [correctlyGuessedCard])
+
+
   const compareSelection = (hand1, hand2) => {
     let foundBoth = true
     hand1.forEach(c => {
       let foundCard = false;
       hand2.forEach(c2 => {
-        if (c2.suit === c.suit && c2.value === c.value) foundCard = true;
+        if (c2.suit === c.suit && c2.value === c.value) {
+          setCorrectlyGuessedCard(c)
+          foundCard = true;
+        }
       })
       if (!foundCard) foundBoth = false
     });
     return foundBoth
   }
 
+  function quake() 
+  { 
+    // the horizontal displacement 
+    let deltaX=1; 
+    let qDuration = 600
+    // make sure the browser support the moveBy method 
+    if (window.moveBy) 
+    { 
+      for (let qCounter=0; qCounter<qDuration; qCounter++) 
+      { 
+        // shake left 
+        if ((qCounter%4)==0) 
+        { 
+          window.moveBy(deltaX, 0); 
+        } 
+        // shake right 
+        else if ((qCounter%4)==2) 
+        { 
+          window.moveBy(-deltaX, 0); 
+        } 
+        // speed up or slow down every X cycles 
+        if ((qCounter%30)==0) 
+        { 
+          // speed up halfway 
+          if (qCounter<qDuration/2) 
+          { 
+            deltaX++; 
+          } 
+          // slow down after halfway of the duration 
+          else 
+          { 
+            deltaX--; 
+          } 
+        } 
+      } 
+    } 
+  } 
+
   const handleSetRound = (nextRound) => {
 
+    if (selectedCards.filter(c => c.value === '?').length > 0) {
+      quake()
+      return
+    }
 
-    if (compareSelection(selectedCards, pcHand)) {
+    if (compareSelection(selectedCards, pcHand)) {      
       console.log('Good')
+      let gc = [...guessedCards, ...selectedCards]
+      setGuessedCards(gc)
+      setSelectedCards([{suit: '', value: '?'}, {suit: '', value: '?'}])
       setHasWon(true)
       return
     } else {
+      let gc = [...guessedCards, ...selectedCards]
+      setGuessedCards(gc)
+      setSelectedCards([{suit: '', value: '?'}, {suit: '', value: '?'}])
       console.log('Bad')
     }
     if (nextRound > tables.length) return
@@ -602,7 +663,7 @@ const App = () => {
       <InfoModal open={showInfo} close={setShowInfo}/>
       <WinModal open={hasWon} hand={pcHand} round={round} />
       {/* <img src={`./${'deck'}.png`} alt="" srcset="" /> */}
-      <div className='text-center pb-2 border-b-2 mx-0 fixed w-screen top-4 bg-white z-10'>
+      <div className='text-center pb-2 border-b-2 mx-0 fixed w-screen top-0 p-4 bg-white z-10'>
         Pokerdle
       </div>
       <div className='fixed z-10 right-2 top-4 w-8 h-8 cursor-pointer' onClick={() => setShowInfo(!showInfo)}>
@@ -630,7 +691,7 @@ const App = () => {
       {/* <div className='flex justify-center fixed bottom-10'>
         <button onClick={(e) => drawPlayerHand()}>Shuffle</button>
       </div> */}
-      <GuessGrid cards={deck} round={round} tables={tables} select={handleCardSelect} selectedCards={selectedCards} />
+      <GuessGrid cards={deck} round={round} tables={tables} select={handleCardSelect} selectedCards={selectedCards} guessedCards={guessedCards} pcHand={pcHand}/>
     </div>
   );
 };
