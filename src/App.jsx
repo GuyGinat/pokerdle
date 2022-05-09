@@ -469,8 +469,7 @@ const App = () => {
   useEffect(() => {
     let date = new Date();
     date = 'd' + date.getDate() + 'y' + date.getFullYear + 'm' + date.getMonth;
-    seed(date, { global: true });
-    
+    seed(date, { global: true });    
     shuffle(deck)    
   }, [])
 
@@ -572,13 +571,6 @@ const App = () => {
     }
   }
 
-  useEffect(() => {
-    if (correctlyGuessedCard !== {}) {
-      console.log('found 1 card!')
-    }
-  }, [correctlyGuessedCard])
-
-
   const compareSelection = (hand1, hand2) => {
     let foundBoth = true
     hand1.forEach(c => {
@@ -603,7 +595,6 @@ const App = () => {
     }
 
     if (compareSelection(selectedCards, pcHand)) {      
-      console.log('Good')
       let gc = [...guessedCards, ...selectedCards]
       setGuessedCards(gc)
       setSelectedCards([{suit: '', value: '?'}, {suit: '', value: '?'}])
@@ -613,7 +604,6 @@ const App = () => {
       let gc = [...guessedCards, ...selectedCards]
       setGuessedCards(gc)
       setSelectedCards([{suit: '', value: '?'}, {suit: '', value: '?'}])
-      console.log('Bad')
     }
     if (nextRound > tables.length) return
     else setRound(nextRound)
