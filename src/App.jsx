@@ -13,13 +13,7 @@ const suits = ["hearts", "diamonds", "clubs", "spades"]
 const values = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K', 'A']
 
 const App = () => {
-  let date = new Date();
-  date = 'd' + date.getDate() + 'y' + date.getFullYear + 'm' + date.getMonth;
-  seed(date, { global: true });
-  var numA = Math.random();
-  seed(date, { global: true });
-  var numB = Math.random();
-  console.log(numA, numB)
+  
 
   const [deck, setDeck] = useState([
     {
@@ -473,6 +467,10 @@ const App = () => {
   }
 
   useEffect(() => {
+    let date = new Date();
+    date = 'd' + date.getDate() + 'y' + date.getFullYear + 'm' + date.getMonth;
+    seed(date, { global: true });
+    
     shuffle(deck)    
   }, [])
 
@@ -596,48 +594,11 @@ const App = () => {
     return foundBoth
   }
 
-  function quake() 
-  { 
-    // the horizontal displacement 
-    let deltaX=1; 
-    let qDuration = 600
-    // make sure the browser support the moveBy method 
-    if (window.moveBy) 
-    { 
-      for (let qCounter=0; qCounter<qDuration; qCounter++) 
-      { 
-        // shake left 
-        if ((qCounter%4)==0) 
-        { 
-          window.moveBy(deltaX, 0); 
-        } 
-        // shake right 
-        else if ((qCounter%4)==2) 
-        { 
-          window.moveBy(-deltaX, 0); 
-        } 
-        // speed up or slow down every X cycles 
-        if ((qCounter%30)==0) 
-        { 
-          // speed up halfway 
-          if (qCounter<qDuration/2) 
-          { 
-            deltaX++; 
-          } 
-          // slow down after halfway of the duration 
-          else 
-          { 
-            deltaX--; 
-          } 
-        } 
-      } 
-    } 
-  } 
+  
 
   const handleSetRound = (nextRound) => {
 
     if (selectedCards.filter(c => c.value === '?').length > 0) {
-      quake()
       return
     }
 

@@ -61,8 +61,8 @@ export default function InfoModal({ open, close}) {
                                             <Card card={{value: '10', suit:'clubs'}}></Card> 
                                         </div>
                                         <div className=' mt-4'>If you win</div>
-                                        <div className='flex flex-row'>
-                                            <div className='flex mr-2 mt-2 justify-center items-center text-green-300 text-md font-normal'>
+                                        <div className='flex flex-row align-middle'>
+                                            <div className='flex mr-2 mt-2 mb-2 justify-center text-center items-center text-green-300 text-md font-normal'>
                                                 {'V'}
                                             </div>
                                             <Card card={{value: '7', suit:'diamonds'}}></Card>
@@ -72,8 +72,8 @@ export default function InfoModal({ open, close}) {
                                             <Card card={{value: '3', suit:'hearts'}}></Card>
                                         </div>
                                         <div className=' mt-4'>If you lose</div>
-                                        <div className='flex flex-row'>
-                                        <div className='flex mr-2 mt-4 justify-center items-center text-red-300 text-md font-normal'>
+                                        <div className='flex flex-row align-top'>
+                                        <div className='flex mr-2 mt-2 mb-2 justify-center text-center items-center text-red-300 text-md font-normal'>
                                             {'X'}
                                         </div>
                                             <Card card={{value: '2', suit:'hearts'}}></Card>
