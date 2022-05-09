@@ -7,6 +7,7 @@ import GuessGrid from './GuessGrid';
 import WinModal from './WinModal';
 import InfoModal from './InfoModal';
 import seed from 'seed-random'
+import { MetaTags } from 'react-meta-tags';
 
 
 const suits = ["hearts", "diamonds", "clubs", "spades"]
@@ -610,6 +611,13 @@ const App = () => {
   }
 
   return (
+    <div>
+      <MetaTags>
+            <title>Pokerdle</title>
+            <meta name="description" content="A poker take on the popular Wordle, guess the opponent's hand by deducting from Texas Hold'em tables" />
+            <meta property="og:title" content="Pokerdale" />
+            <meta property="og:image" content="./ogimage.jpg" />
+      </MetaTags>
     <div className="font-bold text-2xl flex mt-28 flex-col h-full min-h-screen">
       <InfoModal open={showInfo} close={setShowInfo}/>
       <WinModal open={hasWon} hand={pcHand} round={round} />
@@ -643,6 +651,7 @@ const App = () => {
         <button onClick={(e) => drawPlayerHand()}>Shuffle</button>
       </div> */}
       <GuessGrid cards={deck} round={round} tables={tables} select={handleCardSelect} selectedCards={selectedCards} guessedCards={guessedCards} pcHand={pcHand}/>
+    </div>
     </div>
   );
 };
